@@ -165,7 +165,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold mb-4">Folge uns</h3>
               <div className="flex gap-4">
                 <Link
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/afairytale.ol/?locale=id%2Bmaxwin%E3%80%90GB77.CC%E3%80%91.bsca&hl=en"
                   className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-500 transition-transform hover:scale-110"
                 >
                   <Instagram size={24} />
