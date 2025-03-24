@@ -170,29 +170,17 @@ export default function Home() {
                 >
                   <Instagram size={24} />
                 </Link>
-                <Link
-                  href="https://facebook.com"
-                  className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-400 transition-transform hover:scale-110"
-                >
-                  <Facebook size={24} />
-                </Link>
-                <Link
-                  href="https://t.me"
-                  className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-400 transition-transform hover:scale-110"
-                >
-                  <Send size={24} />
-                </Link>
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <Link
                 href="#join"
                 className="inline-block rounded-full bg-white/10 px-6 py-3 font-medium backdrop-blur-sm transition-all hover:bg-gradient-to-r hover:from-pink-500/70 hover:via-purple-500/70 hover:to-blue-500/70"
               >
                 Mitmachen
               </Link>
-            </div>
+            </div> */}
           </div>
 
           <ContactForm />
