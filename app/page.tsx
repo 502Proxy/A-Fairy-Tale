@@ -1,17 +1,17 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowDown, Instagram, Facebook, Send } from "lucide-react"
+import { ArrowDown, Instagram } from "lucide-react"
 import AnimatedBackground from "@/components/animated-background"
 import CountdownTimer from "@/components/countdown-timer"
-import GallerySection from "@/components/gallery-section"
+import ResidentsSection from "@/components/resident-section"
 import ContactForm from "@/components/contact-form"
 import ThemeToggle from "@/components/theme-toggle"
 
 export default function Home() {
-
+  // Next event details - in a real app, this would come from a CMS or API
   const nextEvent = {
     date: "2025-04-20T12:00:00",
-    location: "A Fairy Tale - Gleispark day Rave",
+    location: "Gleispark - Day Rave mit Aftershow",
     lineup: ["tba"],
     ticketLink: "https://rausgegangen.de/events/a-fairy-tale-2/",
   }
@@ -44,12 +44,7 @@ export default function Home() {
         <p className="mb-8 max-w-md text-lg md:text-xl text-gray-200">
           Tauche ein in die Welt von A Fairy Tale – elektronische Musik, Magie und Gemeinschaft.
         </p>
-        {/* <button className="group flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 backdrop-blur-sm transition-all hover:bg-gradient-to-r hover:from-pink-500/70 hover:via-purple-500/70 hover:to-blue-500/70"
-        >
-          <span>Mehr erfahren</span>
-          <ArrowDown className="animate-bounce" size={18} />
 
-        </button> */}
       </section>
 
       {/* About Us Section */}
@@ -65,7 +60,7 @@ export default function Home() {
               Welt zu entführen.
             </p>
             <p className="text-gray-200">
-              Seit 2020 organisieren wir Events, die mehr als nur Partys sind – sie sind Reisen in eine Welt voller
+              Seit 2024 organisieren wir Events, die mehr als nur Partys sind – sie sind Reisen in eine Welt voller
               Fantasie und Verbindung. Unser Team besteht aus Künstlern, Musikliebhabern und Träumern, die gemeinsam
               unvergessliche Erlebnisse schaffen.
             </p>
@@ -121,31 +116,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section id="gallery" className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto">
+      {/* Residents Section (ersetzt Gallery Section) */}
+      <section id="residents" className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto">
         <h2 className="font-display text-3xl md:text-4xl font-bold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
-          Galerie
+          Unsere Residents
         </h2>
 
-        <GallerySection />
+        <ResidentsSection />
+      </section>
 
-        <div className="mt-12 text-center">
+      {/* Aftermovie Section */}
+      <section id="aftermovie" className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto">
+        <h2 className="font-display text-3xl md:text-4xl font-bold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
+          Aftermovie
+        </h2>
+
+        <div className="text-center">
           <div className="relative aspect-video max-w-3xl mx-auto rounded-xl overflow-hidden shadow-2xl shadow-purple-900/30">
-            <Image
-              src="/placeholder.svg?height=720&width=1280"
-              alt="Aftermovie Thumbnail"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-              <div className="rounded-full bg-white/20 p-4 backdrop-blur-sm">
-                <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
+          <video
+            controls 
+            loop
+            autoPlay
+            className="w-full h-full object-cover" 
+            preload="metadata"
+          >
+            <source src="/Aftermovie.mp4" type="video/mp4" />
+
+            Dein Browser unterstützt das Video-Tag nicht. {/* Fallback-Text */}
+          </video>
+
           </div>
-          <p className="mt-4 text-gray-300">Aftermovie: A Fairy Tale - Winter Edition 2024</p>
+          <p className="mt-4 text-gray-300">Aftermovie</p>
         </div>
       </section>
 
@@ -157,8 +158,8 @@ export default function Home() {
               Kontakt
             </h2>
             <p className="text-gray-200 mb-8">
-              Hast du Fragen, Anregungen oder möchtest du Teil unseres Kollektivs werden? Schreib uns eine Nachricht
-              oder folge uns auf Social Media für die neuesten Updates.
+              Hast du Fragen, Anregungen? Schreib uns eine Nachricht oder folge uns auf Social Media für die neuesten
+              Updates.
             </p>
 
             <div className="mb-8">
@@ -172,15 +173,6 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-
-            {/* <div>
-              <Link
-                href="#join"
-                className="inline-block rounded-full bg-white/10 px-6 py-3 font-medium backdrop-blur-sm transition-all hover:bg-gradient-to-r hover:from-pink-500/70 hover:via-purple-500/70 hover:to-blue-500/70"
-              >
-                Mitmachen
-              </Link>
-            </div> */}
           </div>
 
           <ContactForm />
@@ -194,4 +186,3 @@ export default function Home() {
     </main>
   )
 }
-
