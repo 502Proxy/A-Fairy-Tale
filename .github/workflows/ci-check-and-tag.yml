@@ -25,15 +25,9 @@ jobs:
       - name: Install Dependencies
         run: npm ci 
 
-    #   # --- Code Checks ---
-    #   - name: Run Linters
-    #     run: npm run lint 
 
-    #   - name: Run Tests
-    #     run: npm test 
-      # --- Ende Code Checks ---
 
-        - name: Create and Push SemVer Tag (Patch Increment)
+      - name: Create and Push SemVer Tag (Patch Increment)
         # Stelle sicher, dass der Checkout-Schritt 'fetch-depth: 0' hat, um alle Tags zu sehen:
         # uses: actions/checkout@v3
         # with:
