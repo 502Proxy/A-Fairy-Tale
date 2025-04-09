@@ -32,7 +32,6 @@ export default function AnimatedBackground() {
     setCanvasDimensions()
     window.addEventListener("resize", setCanvasDimensions)
 
-    // Sterne und Glitzer-Elemente
     const stars: Star[] = []
     const glitter: Glitter[] = []
     const shootingStars: ShootingStar[] = []
