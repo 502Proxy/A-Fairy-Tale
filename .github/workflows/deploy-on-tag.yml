@@ -3,7 +3,7 @@ name: Deploy Release Tag to DigitalOcean App Platform
 on:
   push:
     tags:
-      - 'release-*'  # Oder 'v*.*.*', oder einfach 'release' - passe das Muster an deine Tags an
+      - 'v*.*.*'  # Oder 'v*.*.*', oder einfach 'release' - passe das Muster an deine Tags an
 
 jobs:
   deploy:
