@@ -1,0 +1,34 @@
+name: Deploy Release Tag to DigitalOcean App Platform
+
+on:
+  push:
+    tags:
+      - 'release-*'  # Oder 'v*.*.*', oder einfach 'release' - passe das Muster an deine Tags an
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} 
+
+      - name: Trigger App Platform Deployment
+        env:
+          APP_ID:  ${{ secrets.DO_APP_ID }} 
+        run: |
+            echo "Triggering deployment for App ID: $APP_ID"
+            doctl apps create-deployment $APP_ID --wait
+
+
+      - name: Send notification on success
+        if: success()
+        run: echo "Deployment erfolgreich für Tag ${{ github.ref_name }}"
+
+      - name: Send notification on failure
+        if: failure()
+        run: echo "Deployment fehlgeschlagen für Tag ${{ github.ref_name }}"
