@@ -30,7 +30,7 @@ export default function Home() {
       <section className="relative flex min-h-screen flex-col items-center justify-center px-4 text-center">
         <div className="animate-float mb-8 relative w-64 h-64 md:w-80 md:h-80">
           <Image
-            src="/logo.png"
+            src="/logo-removebg-preview.png"
             alt="A Fairy Tale Logo"
             width={320}
             height={320}
