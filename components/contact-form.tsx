@@ -38,7 +38,7 @@ export default function ContactForm() {
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      setSubmitStatus('error');
+      setSubmitStatus(error ? 'error' : null);
     } finally {
       setIsSubmitting(false);
       // Reset status after 5 seconds

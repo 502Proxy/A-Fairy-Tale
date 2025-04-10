@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowDown, Instagram } from 'lucide-react';
+import { Instagram } from 'lucide-react';
 import AnimatedBackground from '@/components/animated-background';
 import CountdownTimer from '@/components/countdown-timer';
 import ResidentsSection from '@/components/resident-section';

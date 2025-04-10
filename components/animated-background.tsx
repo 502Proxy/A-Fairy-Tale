@@ -19,7 +19,6 @@ export default function AnimatedBackground() {
     // Set canvas dimensions and handle resize
     const setCanvasDimensions = () => {
       const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
 
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
