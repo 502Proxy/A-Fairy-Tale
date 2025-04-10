@@ -1,16 +1,14 @@
 name: CD - Deploy Release Tag to DigitalOcean App Platform
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
+  release:
+    types: [published] # Trigger, wenn ein Release auf GitHub veröffentlicht wird
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      pull-requests: write
+      contents: read # Nur Lesezugriff auf Code nötig
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
