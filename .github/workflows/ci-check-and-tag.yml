@@ -1,7 +1,7 @@
 name: CI - Check Code and Tag Release Candidate
 
 on:
-  push:
+  pull_request:
     branches:
       - main # Oder 'develop', je nach deinem Branching-Modell
 
@@ -20,12 +20,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22' 
+          node-version: '22'
 
       - name: Install Dependencies
-        run: npm ci 
-
-
+        run: npm ci
 
       - name: Create and Push SemVer Tag (Patch Increment)
         # Stelle sicher, dass der Checkout-Schritt 'fetch-depth: 0' hat, um alle Tags zu sehen:

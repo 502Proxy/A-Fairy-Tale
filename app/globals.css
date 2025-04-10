@@ -94,14 +94,13 @@
 
 /* Custom font for display text */
 @font-face {
-  font-family: "Display";
-  src: local("Arial");
+  font-family: 'Display';
+  src: local('Arial');
   font-weight: normal;
   font-style: normal;
 }
 
 .font-display {
-  font-family: "Display", sans-serif;
+  font-family: 'Display', sans-serif;
   letter-spacing: 0.05em;
 }
-

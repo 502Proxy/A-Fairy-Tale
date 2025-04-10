@@ -1,9 +1,9 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from 'react';
 
 interface CountdownTimerProps {
-  targetDate: string
+  targetDate: string;
 }
 
 export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
@@ -12,32 +12,34 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
     hours: 0,
     minutes: 0,
     seconds: 0,
-  })
+  });
 
   useEffect(() => {
-    const target = new Date(targetDate).getTime()
+    const target = new Date(targetDate).getTime();
 
     const calculateTimeLeft = () => {
-      const now = new Date().getTime()
-      const difference = target - now
+      const now = new Date().getTime();
+      const difference = target - now;
 
       if (difference > 0) {
         setTimeLeft({
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          hours: Math.floor(
+            (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          ),
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((difference % (1000 * 60)) / 1000),
-        })
+        });
       } else {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
-    }
+    };
 
-    calculateTimeLeft()
-    const timer = setInterval(calculateTimeLeft, 1000)
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
 
-    return () => clearInterval(timer)
-  }, [targetDate])
+    return () => clearInterval(timer);
+  }, [targetDate]);
 
   return (
     <div className="grid grid-cols-4 gap-4 text-center">
@@ -69,6 +71,5 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
         <span className="mt-2 text-sm">Sekunden</span>
       </div>
     </div>
-  )
+  );
 }
-

@@ -12,10 +12,7 @@
 - Canvas-basierte Hintergrundanimation mit Sternen und Glitzereffekten
 - CSS-Animationen
 
-
-
 - **Icons**: Lucide React
-
 
 ## 3. Projektstruktur
 
@@ -48,7 +45,6 @@ Die Hauptseite ist in mehrere Sektionen unterteilt:
 - **Gallery Section**: Bildergalerie mit Slider
 - **Contact Section**: Kontaktformular und Social-Media-Links
 
-
 ### 4.2 AnimatedBackground
 
 Eine Canvas-basierte Animation, die einen magischen Sternenhimmel mit Glitzereffekten darstellt. Die Animation läuft im Hintergrund und reagiert auf die Fenstergröße.
@@ -71,7 +67,6 @@ Kleine, pulsierende Sterne in verschiedenen Formen und Größen:
 - Fünfzackige Sternform
 - Farben in Weiß und hellen Pastelltönen
 
-
 #### 4.2.2 Glitzer
 
 Funkelnde Partikel, die zufällig aufblitzen:
@@ -79,7 +74,6 @@ Funkelnde Partikel, die zufällig aufblitzen:
 - Zufälliges Erscheinen und Verschwinden
 - Glühender Effekt durch Radial-Gradienten
 - Farben in Lila, Pink und Blau
-
 
 #### 4.2.3 Sternschnuppen
 
@@ -89,7 +83,6 @@ Gelegentlich erscheinende Sternschnuppen:
 - Bewegung von oben nach unten mit leichtem Winkel
 - Leuchtender Trail, der langsam verblasst
 - Automatisches Entfernen nach Verlassen des Bildschirms
-
 
 ### 4.3 CountdownTimer
 
@@ -148,7 +141,6 @@ Die Website verwendet eine dezente, verträumte Farbpalette:
 - Hintergrund: Dunkles Blau für den Haupthintergrund mit Sternen und Glitzereffekten
 - Akzentfarben: Subtile Farbverläufe für Buttons und Überschriften
 
-
 ### 5.2 Tailwind-Konfiguration
 
 Die Tailwind-Konfiguration definiert benutzerdefinierte Farben und Animationen:
@@ -177,13 +169,11 @@ Die Hintergrundanimation verwendet HTML5 Canvas für eine performante Darstellun
 - **Sternschnuppen**: Gelegentlich erscheinende Sternschnuppen mit leuchtenden Trails
 - **Optimierungen**: Anpassung der Elementanzahl basierend auf der Bildschirmgröße
 
-
 ### 6.2 CSS-Animationen
 
 - **Float-Animation**: Das Logo schwebt sanft auf und ab
 - **Bounce-Animation**: Der Pfeil in der Welcome-Section hüpft leicht
 - **Hover-Effekte**: Buttons und Links haben subtile Hover-Effekte
-
 
 ## 7. Responsive Design
 
@@ -193,7 +183,6 @@ Die Website ist vollständig responsiv und passt sich verschiedenen Bildschirmgr
 - **Breakpoints**: Anpassungen für größere Bildschirme mit Tailwind-Klassen (md:, lg:)
 - **Flexible Bilder**: Bilder passen sich der Containergröße an
 - **Grid/Flexbox**: Verwendung von Grid und Flexbox für responsive Layouts
-
 
 ## 8. Erweiterungsmöglichkeiten
 
@@ -228,13 +217,13 @@ Unterstützung für mehrere Sprachen mit next-intl oder ähnlichen Bibliotheken:
 // Beispiel für mehrsprachige Texte
 const translations = {
   de: {
-    welcome: "Willkommen bei A Fairy Tale",
+    welcome: 'Willkommen bei A Fairy Tale',
     // weitere Übersetzungen
   },
   en: {
-    welcome: "Welcome to A Fairy Tale",
+    welcome: 'Welcome to A Fairy Tale',
     // weitere Übersetzungen
-  }
+  },
 };
 ```
 
@@ -250,14 +239,12 @@ Die Hintergrundanimation könnte weiter ausgebaut werden:
 - Jahreszeitliche oder eventbezogene Themen
 ```
 
-
 ### 9. Performance-Optimierungen
 
 - **Bildoptimierung**: Verwendung von Next.js Image-Komponente für optimierte Bilder
 - **Code-Splitting**: Automatisches Code-Splitting durch Next.js
 - **Lazy Loading**: Komponenten können bei Bedarf lazy geladen werden
 - **Canvas-Optimierung**: Dynamische Anpassung der Partikelanzahl basierend auf der Bildschirmgröße und Geräte-Performance
-
 
 ## 10. Wartung und Updates
 
@@ -267,10 +254,10 @@ Event-Daten können in der `page.tsx` aktualisiert werden:
 
 ```typescript
 const nextEvent = {
-  date: "2025-06-15T21:00:00",
-  location: "Kulturzentrum Oldenburg",
-  lineup: ["DJ Mystical", "Trance Fairy", "Cosmic Butterfly", "Dream Weaver"],
-  ticketLink: "https://tickets.example.com/fairy-tale-june",
+  date: '2025-06-15T21:00:00',
+  location: 'Kulturzentrum Oldenburg',
+  lineup: ['DJ Mystical', 'Trance Fairy', 'Cosmic Butterfly', 'Dream Weaver'],
+  ticketLink: 'https://tickets.example.com/fairy-tale-june',
 };
 ```
 
@@ -280,7 +267,7 @@ Neue Bilder können zum Galerie-Array in `gallery-section.tsx` hinzugefügt werd
 
 ```typescript
 const galleryImages = [
-  { src: "/images/event1.jpg", alt: "Event 1" },
+  { src: '/images/event1.jpg', alt: 'Event 1' },
   // Weitere Bilder hinzufügen
 ];
 ```
