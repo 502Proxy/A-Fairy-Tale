@@ -2,7 +2,7 @@ name: CD - Deploy Release Tag to DigitalOcean App Platform
 
 on:
   release:
-    types: [published] # Trigger, wenn ein Release auf GitHub veröffentlicht wird
+    types: [created, released, published]
 
 jobs:
   deploy:
