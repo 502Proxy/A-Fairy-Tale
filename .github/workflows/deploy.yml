@@ -1,14 +1,18 @@
 name: CD - Deploy Release Tag to DigitalOcean App Platform
 
 on:
-  release:
-    types: [created, released, published]
+  workflow_run:
+    workflows: [CD - Create Release]
+    types:
+      - completed
+    branches:
+      - main 
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # Nur Lesezugriff auf Code nötig
+      contents: read 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
