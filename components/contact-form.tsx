@@ -1,46 +1,50 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Send } from "lucide-react"
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Send } from 'lucide-react';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  })
+    name: '',
+    email: '',
+    message: '',
+  });
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<null | "success" | "error">(null)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<null | 'success' | 'error'>(
+    null
+  );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate form submission
     try {
       // In a real app, you would send the form data to your backend
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setSubmitStatus("success")
-      setFormData({ name: "", email: "", message: "" })
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      setSubmitStatus("error")
+      setSubmitStatus(error ? 'error' : null);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
       // Reset status after 5 seconds
-      setTimeout(() => setSubmitStatus(null), 5000)
+      setTimeout(() => setSubmitStatus(null), 5000);
     }
-  }
+  };
 
   return (
     <form
@@ -90,8 +94,8 @@ export default function ContactForm() {
         disabled={isSubmitting}
         className={`w-full rounded-full transition-all ${
           isSubmitting
-            ? "bg-purple-700"
-            : "bg-gradient-to-r from-pink-500/80 via-purple-500/80 to-blue-500/80 hover:shadow-lg hover:shadow-purple-500/30"
+            ? 'bg-purple-700'
+            : 'bg-gradient-to-r from-pink-500/80 via-purple-500/80 to-blue-500/80 hover:shadow-lg hover:shadow-purple-500/30'
         }`}
       >
         {isSubmitting ? (
@@ -102,7 +106,14 @@ export default function ContactForm() {
               fill="none"
               viewBox="0 0 24 24"
             >
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
               <path
                 className="opacity-75"
                 fill="currentColor"
@@ -118,18 +129,18 @@ export default function ContactForm() {
         )}
       </Button>
 
-      {submitStatus === "success" && (
+      {submitStatus === 'success' && (
         <div className="rounded-md bg-green-500/20 p-3 text-green-200">
           Danke für deine Nachricht! Wir melden uns bald bei dir.
         </div>
       )}
 
-      {submitStatus === "error" && (
+      {submitStatus === 'error' && (
         <div className="rounded-md bg-red-500/20 p-3 text-red-200">
-          Es gab ein Problem beim Senden deiner Nachricht. Bitte versuche es später noch einmal.
+          Es gab ein Problem beim Senden deiner Nachricht. Bitte versuche es
+          später noch einmal.
         </div>
       )}
     </form>
-  )
+  );
 }
-

@@ -1,20 +1,20 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowDown, Instagram } from "lucide-react"
-import AnimatedBackground from "@/components/animated-background"
-import CountdownTimer from "@/components/countdown-timer"
-import ResidentsSection from "@/components/resident-section"
-import ContactForm from "@/components/contact-form"
-import ThemeToggle from "@/components/theme-toggle"
+import Image from 'next/image';
+import Link from 'next/link';
+import { Instagram } from 'lucide-react';
+import AnimatedBackground from '@/components/animated-background';
+import CountdownTimer from '@/components/countdown-timer';
+import ResidentsSection from '@/components/resident-section';
+import ContactForm from '@/components/contact-form';
+import ThemeToggle from '@/components/theme-toggle';
 
 export default function Home() {
   // Next event details - in a real app, this would come from a CMS or API
   const nextEvent = {
-    date: "2025-04-20T12:00:00",
-    location: "Gleispark - Day Rave mit Aftershow",
-    lineup: ["tba"],
-    ticketLink: "https://rausgegangen.de/events/a-fairy-tale-2/",
-  }
+    date: '2025-04-20T12:00:00',
+    location: 'Gleispark - Day Rave mit Aftershow',
+    lineup: ['tba'],
+    ticketLink: 'https://rausgegangen.de/events/a-fairy-tale-2/',
+  };
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white">
@@ -42,37 +42,50 @@ export default function Home() {
           A FAIRY TALE
         </h1>
         <p className="mb-8 max-w-md text-lg md:text-xl text-gray-200">
-          Tauche ein in die Welt von A Fairy Tale – elektronische Musik, Magie und Gemeinschaft.
+          Tauche ein in die Welt von A Fairy Tale – elektronische Musik, Magie
+          und Gemeinschaft.
         </p>
-
       </section>
 
       {/* About Us Section */}
-      <section id="about" className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto">
+      <section
+        id="about"
+        className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto"
+      >
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
               Über Uns
             </h2>
             <p className="text-gray-200 mb-4">
-              A Fairy Tale ist ein Kollektiv aus Oldenburg, das sich der Schaffung magischer Trance-Erlebnisse
-              verschrieben hat. Unsere Leidenschaft ist es, Menschen durch Musik, Licht und Gemeinschaft in eine andere
-              Welt zu entführen.
+              A Fairy Tale ist ein Kollektiv aus Oldenburg, das sich der
+              Schaffung magischer Trance-Erlebnisse verschrieben hat. Unsere
+              Leidenschaft ist es, Menschen durch Musik, Licht und Gemeinschaft
+              in eine andere Welt zu entführen.
             </p>
             <p className="text-gray-200">
-              Seit 2024 organisieren wir Events, die mehr als nur Partys sind – sie sind Reisen in eine Welt voller
-              Fantasie und Verbindung. Unser Team besteht aus Künstlern, Musikliebhabern und Träumern, die gemeinsam
-              unvergessliche Erlebnisse schaffen.
+              Seit 2024 organisieren wir Events, die mehr als nur Partys sind –
+              sie sind Reisen in eine Welt voller Fantasie und Verbindung. Unser
+              Team besteht aus Künstlern, Musikliebhabern und Träumern, die
+              gemeinsam unvergessliche Erlebnisse schaffen.
             </p>
           </div>
           <div className="relative h-80 rounded-xl overflow-hidden shadow-2xl shadow-purple-900/30">
-            <Image src="/placeholder.svg?height=400&width=600" alt="A Fairy Tale Event" fill className="object-cover" />
+            <Image
+              src="/placeholder.svg?height=400&width=600"
+              alt="A Fairy Tale Event"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
       </section>
 
       {/* Next Event Section */}
-      <section id="events" className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto">
+      <section
+        id="events"
+        className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto"
+      >
         <div className="backdrop-blur-sm bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-2xl p-8 border border-white/10 shadow-xl">
           <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
             Nächstes Event
@@ -82,15 +95,17 @@ export default function Home() {
             <div>
               <h3 className="text-2xl font-bold mb-2">{nextEvent.location}</h3>
               <p className="text-xl text-pink-300 mb-6">
-                {new Date(nextEvent.date).toLocaleDateString("de-DE", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
+                {new Date(nextEvent.date).toLocaleDateString('de-DE', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
                 })}
               </p>
 
               <div className="mb-6">
-                <h4 className="text-lg font-semibold mb-2 text-blue-300">Line-up:</h4>
+                <h4 className="text-lg font-semibold mb-2 text-blue-300">
+                  Line-up:
+                </h4>
                 <ul className="space-y-1">
                   {nextEvent.lineup.map((artist, index) => (
                     <li key={index} className="text-gray-200">
@@ -117,7 +132,10 @@ export default function Home() {
       </section>
 
       {/* Residents Section (ersetzt Gallery Section) */}
-      <section id="residents" className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto">
+      <section
+        id="residents"
+        className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto"
+      >
         <h2 className="font-display text-3xl md:text-4xl font-bold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
           Unsere Residents
         </h2>
@@ -126,40 +144,45 @@ export default function Home() {
       </section>
 
       {/* Aftermovie Section */}
-      <section id="aftermovie" className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto">
+      <section
+        id="aftermovie"
+        className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto"
+      >
         <h2 className="font-display text-3xl md:text-4xl font-bold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
           Aftermovie
         </h2>
 
         <div className="text-center">
           <div className="relative aspect-video max-w-3xl mx-auto rounded-xl overflow-hidden shadow-2xl shadow-purple-900/30">
-          <video
-            controls 
-            loop
-            autoPlay
-            className="w-full h-full object-cover" 
-            preload="metadata"
-          >
-            <source src="/Aftermovie.mp4" type="video/mp4" />
-
-            Dein Browser unterstützt das Video-Tag nicht. {/* Fallback-Text */}
-          </video>
-
+            <video
+              controls
+              loop
+              autoPlay
+              className="w-full h-full object-cover"
+              preload="metadata"
+            >
+              <source src="/Aftermovie.mp4" type="video/mp4" />
+              Dein Browser unterstützt das Video-Tag nicht.{' '}
+              {/* Fallback-Text */}
+            </video>
           </div>
           <p className="mt-4 text-gray-300">Aftermovie</p>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto">
+      <section
+        id="contact"
+        className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto"
+      >
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
               Kontakt
             </h2>
             <p className="text-gray-200 mb-8">
-              Hast du Fragen, Anregungen? Schreib uns eine Nachricht oder folge uns auf Social Media für die neuesten
-              Updates.
+              Hast du Fragen, Anregungen? Schreib uns eine Nachricht oder folge
+              uns auf Social Media für die neuesten Updates.
             </p>
 
             <div className="mb-8">
@@ -181,8 +204,11 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="relative py-8 px-4 text-center text-sm text-gray-400 border-t border-white/10">
-        <p>© {new Date().getFullYear()} A Fairy Tale Kollektiv. Alle Rechte vorbehalten.</p>
+        <p>
+          © {new Date().getFullYear()} A Fairy Tale Kollektiv. Alle Rechte
+          vorbehalten.
+        </p>
       </footer>
     </main>
-  )
+  );
 }
