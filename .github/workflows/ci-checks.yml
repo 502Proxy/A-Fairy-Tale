@@ -9,8 +9,9 @@ jobs:
   quality-checks:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      security-events: write
+      contents: read          # Benötigt für Checkout
+      security-events: write # Benötigt für das Hochladen von CodeQL SARIF Ergebnissen
+      actions: read   
 
     steps:
       - name: Checkout code
