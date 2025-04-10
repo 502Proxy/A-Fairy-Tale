@@ -284,7 +284,6 @@ Der Sternenhimmel-Hintergrund kann in `animated-background.tsx` angepasst werden
 - Ändern der Bewegungsgeschwindigkeit un
 ```
 
-
 # Development und Deployment Workflow
 
 ## Übersicht
@@ -292,79 +291,85 @@ Der Sternenhimmel-Hintergrund kann in `animated-background.tsx` angepasst werden
 Dieser Workflow beschreibt den Prozess von der lokalen Entwicklung einer Funktion bis zum automatisierten Deployment einer neuen Version auf die DigitalOcean App Platform. Das Ziel ist es, durch automatisierte Checks und Prozesse eine hohe Code-Qualität sicherzustellen und Releases konsistent und nachvollziehbar zu gestalten.
 
 Der Prozess nutzt:
-* **Git:** Für die Versionskontrolle (mit Feature-Branches und `main`).
-* **GitHub Pull Requests:** Für Code Reviews und als Trigger für Qualitätschecks.
-* **GitHub Actions:** Für die Automatisierung von CI (Continuous Integration) und CD (Continuous Deployment).
-    * `ci-checks.yml`: Prüft die Code-Qualität bei Pull Requests.
-    * `release.yml`: Erstellt automatisch Releases (Tags, GitHub Releases) bei Merges nach `main`.
-    * `deploy.yml`: Deployt automatisch getaggte Versionen auf DigitalOcean.
-* **Conventional Commits:** Ein Standard für Commit-Nachrichten, der für die automatische Versionsfindung benötigt wird.
-* **Semantic Release:** Ein Tool, das automatisch Versionen basierend auf Conventional Commits bestimmt, Tags erstellt und Releases generiert.
-* **DigitalOcean App Platform:** Die Zielplattform für das Deployment.
+
+- **Git:** Für die Versionskontrolle (mit Feature-Branches und `main`).
+- **GitHub Pull Requests:** Für Code Reviews und als Trigger für Qualitätschecks.
+- **GitHub Actions:** Für die Automatisierung von CI (Continuous Integration) und CD (Continuous Deployment).
+  - `ci-checks.yml`: Prüft die Code-Qualität bei Pull Requests.
+  - `release.yml`: Erstellt automatisch Releases (Tags, GitHub Releases) bei Merges nach `main`.
+  - `deploy.yml`: Deployt automatisch getaggte Versionen auf DigitalOcean.
+- **Conventional Commits:** Ein Standard für Commit-Nachrichten, der für die automatische Versionsfindung benötigt wird.
+- **Semantic Release:** Ein Tool, das automatisch Versionen basierend auf Conventional Commits bestimmt, Tags erstellt und Releases generiert.
+- **DigitalOcean App Platform:** Die Zielplattform für das Deployment.
 
 ## Voraussetzungen
 
-* Node.js und npm/yarn installiert.
-* Git installiert und konfiguriert.
-* Entwickler müssen dem **Conventional Commits** Standard für ihre Commit-Nachrichten folgen. ([Spezifikation](https://www.conventionalcommits.org/))
-* **Commitlint** ist eingerichtet (via Husky), um die Einhaltung der Conventional Commits lokal zu unterstützen.
-* **Secrets** sind im GitHub Repository konfiguriert (`Settings > Secrets and variables > Actions`):
-    * `DIGITALOCEAN_ACCESS_TOKEN`: Dein API-Token für DigitalOcean.
-    * `DO_APP_ID`: Die ID deiner App auf der DigitalOcean App Platform.
-    * `NPM_TOKEN` (Optional): Nur benötigt, wenn `semantic-release` auch auf npm publizieren soll.
-* `semantic-release` ist als Dev-Dependency installiert und konfiguriert (z.B. via `.releaserc.json`).
+- Node.js und npm/yarn installiert.
+- Git installiert und konfiguriert.
+- Entwickler müssen dem **Conventional Commits** Standard für ihre Commit-Nachrichten folgen. ([Spezifikation](https://www.conventionalcommits.org/))
+- **Commitlint** ist eingerichtet (via Husky), um die Einhaltung der Conventional Commits lokal zu unterstützen.
+- **Secrets** sind im GitHub Repository konfiguriert (`Settings > Secrets and variables > Actions`):
+  - `DIGITALOCEAN_ACCESS_TOKEN`: Dein API-Token für DigitalOcean.
+  - `DO_APP_ID`: Die ID deiner App auf der DigitalOcean App Platform.
+  - `NPM_TOKEN` (Optional): Nur benötigt, wenn `semantic-release` auch auf npm publizieren soll.
+- `semantic-release` ist als Dev-Dependency installiert und konfiguriert (z.B. via `.releaserc.json`).
 
 ## Der Prozess: Schritt für Schritt
 
 1.  **Lokale Entwicklung (Feature Branch):**
-    * Erstelle einen neuen Branch von `main` für jede neue Funktion oder jeden Bugfix (z.B. `git checkout -b feat/neue-funktion` oder `fix/login-bug`).
-    * Entwickle den Code auf diesem Branch.
-    * Erstelle Commits für deine Änderungen. **Wichtig:** Verwende dabei **Conventional Commits** für deine Commit-Nachrichten (z.B. `git commit -m "feat: add user login form"` oder `fix: correct calculation error`). Commitlint (via Husky) hilft dir lokal dabei, das Format einzuhalten.
+
+    - Erstelle einen neuen Branch von `main` für jede neue Funktion oder jeden Bugfix (z.B. `git checkout -b feat/neue-funktion` oder `fix/login-bug`).
+    - Entwickle den Code auf diesem Branch.
+    - Erstelle Commits für deine Änderungen. **Wichtig:** Verwende dabei **Conventional Commits** für deine Commit-Nachrichten (z.B. `git commit -m "feat: add user login form"` oder `fix: correct calculation error`). Commitlint (via Husky) hilft dir lokal dabei, das Format einzuhalten.
 
 2.  **Pull Request (PR) erstellen:**
-    * Wenn die Entwicklung abgeschlossen ist, pushe deinen Feature-Branch zu GitHub (`git push origin feat/neue-funktion`).
-    * Erstelle auf GitHub einen Pull Request von deinem Feature-Branch gegen den `main`-Branch.
+
+    - Wenn die Entwicklung abgeschlossen ist, pushe deinen Feature-Branch zu GitHub (`git push origin feat/neue-funktion`).
+    - Erstelle auf GitHub einen Pull Request von deinem Feature-Branch gegen den `main`-Branch.
 
 3.  **Automatisierte CI-Checks (Workflow: `ci-checks.yml`):**
-    * Sobald der PR erstellt oder aktualisiert wird, startet **automatisch** der `ci-checks.yml`-Workflow.
-    * Dieser Workflow führt folgende Schritte aus:
-        * Code auschecken
-        * Abhängigkeiten installieren (`npm ci`)
-        * Code-Linting (`npm run lint`)
-        * Formatierungs-Check (`npm run format:check`)
-        * Automatisierte Tests (`npm test`)
-        * Build-Check (`npm run build`)
-        * Code Scanning mit CodeQL
-    * Das Ergebnis (Erfolg/Fehlschlag) wird direkt im Pull Request angezeigt. Ein Fehlschlag blockiert das Mergen (wenn Branch Protection entsprechend konfiguriert ist).
+
+    - Sobald der PR erstellt oder aktualisiert wird, startet **automatisch** der `ci-checks.yml`-Workflow.
+    - Dieser Workflow führt folgende Schritte aus:
+      - Code auschecken
+      - Abhängigkeiten installieren (`npm ci`)
+      - Code-Linting (`npm run lint`)
+      - Formatierungs-Check (`npm run format:check`)
+      - Automatisierte Tests (`npm test`)
+      - Build-Check (`npm run build`)
+      - Code Scanning mit CodeQL
+    - Das Ergebnis (Erfolg/Fehlschlag) wird direkt im Pull Request angezeigt. Ein Fehlschlag blockiert das Mergen (wenn Branch Protection entsprechend konfiguriert ist).
 
 4.  **Code Review und Merge:**
-    * Teammitglieder reviewen den Code im Pull Request.
-    * Nach erfolgreichem Review und **bestandenen CI-Checks** wird der Pull Request in den `main`-Branch gemerged.
+
+    - Teammitglieder reviewen den Code im Pull Request.
+    - Nach erfolgreichem Review und **bestandenen CI-Checks** wird der Pull Request in den `main`-Branch gemerged.
 
 5.  **Automatisierte Release-Erstellung (Workflow: `release.yml`):**
-    * Der Merge löst einen Push auf dem `main`-Branch aus, wodurch **automatisch** der `release.yml`-Workflow startet.
-    * Dieser Workflow führt `npx semantic-release` aus:
-        * `semantic-release` analysiert die Commit-Nachrichten (Conventional Commits!) seit dem letzten Release auf `main`.
-        * Es bestimmt die **nächste Versionsnummer** (z.B. `v1.2.3`, `v1.3.0` oder `v2.0.0`) basierend auf den Typen der Commits (`fix:` -> Patch, `feat:` -> Minor, `BREAKING CHANGE:` -> Major).
-        * Es erstellt automatisch einen **Git-Tag** mit dieser Versionsnummer (z.B. `v1.2.3`).
-        * Es pusht diesen Tag zum GitHub Repository.
-        * Es generiert Release Notes aus den Commit-Nachrichten.
-        * Es erstellt einen **GitHub Release**-Eintrag mit den Release Notes und dem Tag.
-        * (Optional: Aktualisiert `CHANGELOG.md` und `package.json` und committet dies).
+
+    - Der Merge löst einen Push auf dem `main`-Branch aus, wodurch **automatisch** der `release.yml`-Workflow startet.
+    - Dieser Workflow führt `npx semantic-release` aus:
+      - `semantic-release` analysiert die Commit-Nachrichten (Conventional Commits!) seit dem letzten Release auf `main`.
+      - Es bestimmt die **nächste Versionsnummer** (z.B. `v1.2.3`, `v1.3.0` oder `v2.0.0`) basierend auf den Typen der Commits (`fix:` -> Patch, `feat:` -> Minor, `BREAKING CHANGE:` -> Major).
+      - Es erstellt automatisch einen **Git-Tag** mit dieser Versionsnummer (z.B. `v1.2.3`).
+      - Es pusht diesen Tag zum GitHub Repository.
+      - Es generiert Release Notes aus den Commit-Nachrichten.
+      - Es erstellt einen **GitHub Release**-Eintrag mit den Release Notes und dem Tag.
+      - (Optional: Aktualisiert `CHANGELOG.md` und `package.json` und committet dies).
 
 6.  **Automatisches Deployment (Workflow: `deploy.yml`):**
-    * Das Pushen des neuen Git-Tags (z.B. `v1.2.3`) durch den `release.yml`-Workflow löst **automatisch** den `deploy.yml`-Workflow aus (da er auf `push: tags: ['v*.*.*']` hört).
-    * Dieser Workflow:
-        * Checkt den Code genau bei diesem Tag aus.
-        * Verbindet sich mit DigitalOcean (`doctl`).
-        * Triggert ein neues Deployment für die konfigurierte App (`DO_APP_ID`) auf der DigitalOcean App Platform.
-        * Wartet optional auf den Abschluss des Deployments.
-        * Sendet eine Erfolgs- oder Fehlermeldung.
+    - Das Pushen des neuen Git-Tags (z.B. `v1.2.3`) durch den `release.yml`-Workflow löst **automatisch** den `deploy.yml`-Workflow aus (da er auf `push: tags: ['v*.*.*']` hört).
+    - Dieser Workflow:
+      - Checkt den Code genau bei diesem Tag aus.
+      - Verbindet sich mit DigitalOcean (`doctl`).
+      - Triggert ein neues Deployment für die konfigurierte App (`DO_APP_ID`) auf der DigitalOcean App Platform.
+      - Wartet optional auf den Abschluss des Deployments.
+      - Sendet eine Erfolgs- oder Fehlermeldung.
 
 ## Branching-Strategie
 
-* `main`: Der Haupt-Branch. Enthält den produktiven Code. Merges nach `main` lösen Releases aus.
-* `feat/*`, `fix/*`, `chore/*`, etc.: Feature-/Bugfix-/Task-Branches, die von `main` abzweigen und per PR wieder nach `main` gemerged werden.
+- `main`: Der Haupt-Branch. Enthält den produktiven Code. Merges nach `main` lösen Releases aus.
+- `feat/*`, `fix/*`, `chore/*`, etc.: Feature-/Bugfix-/Task-Branches, die von `main` abzweigen und per PR wieder nach `main` gemerged werden.
 
 ## Commit-Nachrichten: Conventional Commits
 
@@ -373,24 +378,25 @@ Die Einhaltung des Conventional Commits Standards ist **entscheidend** für dies
 **Format:** `<type>(<optional scope>): <subject>`
 
 **Beispiele:**
-* `feat: allow users to upload avatars`
-* `fix(api): correct pagination logic`
-* `docs: explain environment variables`
-* `chore: update linters`
-* `refactor!: drop support for Node 14` (enthält Breaking Change)
+
+- `feat: allow users to upload avatars`
+- `fix(api): correct pagination logic`
+- `docs: explain environment variables`
+- `chore: update linters`
+- `refactor!: drop support for Node 14` (enthält Breaking Change)
 
 ## Workflow-Dateien
 
 Die Automatisierung wird durch diese Dateien im Verzeichnis `.github/workflows/` gesteuert:
 
-* `ci-checks.yml`: Definiert die Checks für Pull Requests.
-* `release.yml`: Definiert den Release-Prozess bei Merges nach `main`.
-* `deploy.yml`: Definiert das Deployment bei neuen Tags.
+- `ci-checks.yml`: Definiert die Checks für Pull Requests.
+- `release.yml`: Definiert den Release-Prozess bei Merges nach `main`.
+- `deploy.yml`: Definiert das Deployment bei neuen Tags.
 
 ## Konfigurationsdateien
 
 Wichtige Konfigurationen für diesen Prozess finden sich in:
 
-* `.releaserc.json` (oder `.yml`/`.js`): Konfiguration für `semantic-release`.
-* `commitlint.config.cjs` (oder `.js`): Konfiguration für `commitlint`.
-* `package.json`: Enthält die npm-Skripte (`lint`, `test`, `build` etc.).
+- `.releaserc.json` (oder `.yml`/`.js`): Konfiguration für `semantic-release`.
+- `commitlint.config.cjs` (oder `.js`): Konfiguration für `commitlint`.
+- `package.json`: Enthält die npm-Skripte (`lint`, `test`, `build` etc.).

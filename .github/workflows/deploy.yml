@@ -3,7 +3,7 @@ name: CD - Deploy Release Tag to DigitalOcean App Platform
 on:
   push:
     tags:
-      - 'v*.*.*' 
+      - 'v*.*.*'
 
 jobs:
   deploy:
@@ -15,7 +15,7 @@ jobs:
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} 
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Trigger App Platform Deployment
         env:
