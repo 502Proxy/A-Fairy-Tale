@@ -12,6 +12,6 @@
       { "argsIgnorePattern": "^_" }
     ],
     "prettier/prettier": "warn",
-    "@typescript-eslint/no-explicit-any": "off" // Diese Regel deaktiviert die Warnung/Fehler für 'any'
+    "@typescript-eslint/no-explicit-any": "off" 
   }
 }
