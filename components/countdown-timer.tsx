@@ -22,7 +22,7 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
       const difference = target - now;
 
       if (!isNaN(difference) && difference > 0) {
-        // Check for NaN from invalid dates
+
         setTimeLeft({
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor(
