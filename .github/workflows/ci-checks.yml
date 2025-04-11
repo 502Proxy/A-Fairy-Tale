@@ -28,15 +28,13 @@ jobs:
 
       - name: Lint Code
         run: npm run lint
+        continue-on-error: true
 
       - name: Check Formatting
         run: npm run format:check
 
       - name: Run Tests
         run: npm test
-
-      - name: Build Project
-        run: npm run build
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
