@@ -30,7 +30,6 @@ jobs:
         run: npm run lint
         continue-on-error: true
 
-
       - name: Check Formatting
         run: npm run format:check
 

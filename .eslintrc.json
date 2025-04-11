@@ -2,16 +2,16 @@
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended", // Korrigierter Name ("recommended" statt "empfohlen")
-    "plugin:prettier/recommended" 
+    "plugin:prettier/recommended"
   ],
   "rules": {
-    "no-console": "warn",                 
-    "react/react-in-jsx-scope": "off",    // "off" statt "aus"
+    "no-console": "warn",
+    "react/react-in-jsx-scope": "off", // "off" statt "aus"
     "@typescript-eslint/no-unused-vars": [
-      "warn",                             // "warn" statt "warnen"
+      "warn", // "warn" statt "warnen"
       { "argsIgnorePattern": "^_" }
     ],
     "prettier/prettier": "warn",
-    "@typescript-eslint/no-explicit-any": "off" 
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
