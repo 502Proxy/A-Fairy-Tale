@@ -56,7 +56,8 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
         <div
           data-testid="hours-value"
           className="flex h-20 w-20 items-center justify-center rounded-lg bg-gradient-to-br from-purple-900/40 to-blue-900/40 text-3xl font-bold backdrop-blur-sm border border-purple-500/20"
-        >{timeLeft.hours}
+        >
+          {timeLeft.hours}
         </div>
         <span className="mt-2 text-sm">Stunden</span>
       </div>

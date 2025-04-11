@@ -9,6 +9,7 @@ interface IResidentRepository {
   delete(id: string): Promise<Resident | null>;
   update(id: string, data: Prisma.ResidentUpdateInput): Promise<Resident>;
   findUnique(id: string): Promise<Resident | null>;
+  countAll(): Promise<number>;
 }
 
 const residentRepository: IResidentRepository = {
@@ -81,6 +82,14 @@ const residentRepository: IResidentRepository = {
     } catch (error) {
       console.error('Error in residentRepository.findUnique:', error);
       throw new Error('Could not fetch resident from database.');
+    }
+  },
+  async countAll(): Promise<number> {
+    try {
+      return await prisma.resident.count();
+    } catch (error) {
+      console.error('Error in residentRepository.countAll:', error);
+      throw new Error('Could not count residents.');
     }
   },
 };

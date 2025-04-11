@@ -6,27 +6,42 @@ import CountdownTimer from '@/components/countdown-timer';
 import ResidentsSection from '@/components/resident-section';
 import ContactForm from '@/components/contact-form';
 import ThemeToggle from '@/components/theme-toggle';
+import eventRepository from '@/server/repositories/eventRepository'; // Pfad ggf. anpassen
+import { EventStatus } from '@prisma/client';
 
-export default function Home() {
-  // Next event details - in a real app, this would come from a CMS or API
-  const nextEvent = {
-    date: '2025-04-20T12:00:00',
-    location: 'Gleispark - Day Rave mit Aftershow',
-    lineup: ['tba'],
-    ticketLink: 'https://rausgegangen.de/events/a-fairy-tale-2/',
-  };
+export default async function Home() {
+  let nextEventData = null;
+  let fetchError = null;
+
+  try {
+    const upcomingEvents = await eventRepository.findMany({
+      where: {
+        status: EventStatus.upcoming,
+        date: {
+          gte: new Date(),
+        },
+      },
+      orderBy: {
+        date: 'asc',
+      },
+    });
+
+    if (upcomingEvents.length > 0) {
+      nextEventData = upcomingEvents[0];
+    }
+  } catch (error) {
+    console.error('Failed to fetch next event for homepage:', error);
+    fetchError = 'Fehler beim Laden des nächsten Events.';
+  }
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white">
-      {/* Animated Background */}
       <AnimatedBackground />
 
-      {/* Theme Toggle */}
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
       </div>
 
-      {/* Welcome Section */}
       <section className="relative flex min-h-screen flex-col items-center justify-center px-4 text-center">
         <div className="animate-float mb-8 relative w-64 h-64 md:w-80 md:h-80">
           <Image
@@ -47,7 +62,6 @@ export default function Home() {
         </p>
       </section>
 
-      {/* About Us Section */}
       <section
         id="about"
         className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto"
@@ -81,57 +95,94 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Next Event Section */}
       <section
         id="events"
         className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto"
       >
-        <div className="backdrop-blur-sm bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-2xl p-8 border border-white/10 shadow-xl">
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
-            Nächstes Event
-          </h2>
+        {fetchError ? (
+          <div className="text-center text-red-400 bg-red-900/50 p-4 rounded-lg">
+            {fetchError}
+          </div>
+        ) : nextEventData ? (
+          <div className="backdrop-blur-sm bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-2xl p-8 border border-white/10 shadow-xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
+              Nächstes Event
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h3 className="text-2xl font-bold mb-2">
+                  {nextEventData.title}
+                </h3>
+                <p className="text-lg text-gray-300 mb-1">
+                  {nextEventData.location}
+                </p>
+                <p className="text-xl text-pink-300 mb-6">
+                  {new Date(nextEventData.date).toLocaleDateString('de-DE', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
+                  {' um '}
+                  {new Date(nextEventData.date).toLocaleTimeString('de-DE', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}{' '}
+                  Uhr
+                </p>
 
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-2xl font-bold mb-2">{nextEvent.location}</h3>
-              <p className="text-xl text-pink-300 mb-6">
-                {new Date(nextEvent.date).toLocaleDateString('de-DE', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                })}
-              </p>
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold mb-2 text-blue-300">
+                    Line-up:
+                  </h4>
+                  <ul className="space-y-1">
+                    {nextEventData.lineup && nextEventData.lineup.length > 0 ? (
+                      nextEventData.lineup.map((artist, index) => (
+                        <li key={index} className="text-gray-200">
+                          {artist}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="text-gray-400 italic">
+                        Noch nicht bekannt
+                      </li>
+                    )}
+                  </ul>
+                </div>
 
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold mb-2 text-blue-300">
-                  Line-up:
-                </h4>
-                <ul className="space-y-1">
-                  {nextEvent.lineup.map((artist, index) => (
-                    <li key={index} className="text-gray-200">
-                      {artist}
-                    </li>
-                  ))}
-                </ul>
+                {nextEventData.ticketLink && (
+                  <Link
+                    href={nextEventData.ticketLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block rounded-full bg-gradient-to-r from-pink-500/80 via-purple-500/80 to-blue-500/80 px-8 py-3 font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30"
+                  >
+                    Tickets sichern
+                  </Link>
+                )}
               </div>
 
-              <Link
-                href={nextEvent.ticketLink}
-                className="inline-block rounded-full bg-gradient-to-r from-pink-500/80 via-purple-500/80 to-blue-500/80 px-8 py-3 font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30"
-              >
-                Tickets sichern
-              </Link>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <p className="text-lg mb-4">Noch bis zum Event:</p>
-              <CountdownTimer targetDate={nextEvent.date} />
+              <div className="flex flex-col items-center">
+                <p className="text-lg mb-4">Noch bis zum Event:</p>
+                <CountdownTimer
+                  targetDate={new Date(nextEventData.date).toISOString()}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="text-center text-gray-400 backdrop-blur-sm bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-2xl p-8 border border-white/10 shadow-xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
+              Nächstes Event
+            </h2>
+            <p>
+              Momentan ist kein kommendes Event geplant. Schau bald wieder
+              vorbei!
+            </p>
+          </div>
+        )}
       </section>
 
-      {/* Residents Section (ersetzt Gallery Section) */}
       <section
         id="residents"
         className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto"
@@ -139,11 +190,9 @@ export default function Home() {
         <h2 className="font-display text-3xl md:text-4xl font-bold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
           Unsere Residents
         </h2>
-
         <ResidentsSection />
       </section>
 
-      {/* Aftermovie Section */}
       <section
         id="aftermovie"
         className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto"
@@ -151,26 +200,26 @@ export default function Home() {
         <h2 className="font-display text-3xl md:text-4xl font-bold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
           Aftermovie
         </h2>
-
         <div className="text-center">
           <div className="relative aspect-video max-w-3xl mx-auto rounded-xl overflow-hidden shadow-2xl shadow-purple-900/30">
             <video
               controls
               loop
               autoPlay
+              muted // Autoplay funktioniert oft nur mit muted
+              playsInline // Wichtig für mobile Browser
               className="w-full h-full object-cover"
               preload="metadata"
+              poster="/placeholder.svg?height=720&width=1280&text=Video+Laden..." // Optional: Vorschaubild
             >
               <source src="/Aftermovie.mp4" type="video/mp4" />
-              Dein Browser unterstützt das Video-Tag nicht.{' '}
-              {/* Fallback-Text */}
+              Dein Browser unterstützt das Video-Tag nicht.
             </video>
           </div>
           <p className="mt-4 text-gray-300">Aftermovie</p>
         </div>
       </section>
 
-      {/* Contact Section */}
       <section
         id="contact"
         className="relative py-20 px-4 md:px-8 max-w-6xl mx-auto"
@@ -184,25 +233,25 @@ export default function Home() {
               Hast du Fragen, Anregungen? Schreib uns eine Nachricht oder folge
               uns auf Social Media für die neuesten Updates.
             </p>
-
             <div className="mb-8">
               <h3 className="text-xl font-semibold mb-4">Folge uns</h3>
               <div className="flex gap-4">
                 <Link
-                  href="https://www.instagram.com/afairytale.ol/?locale=id%2Bmaxwin%E3%80%90GB77.CC%E3%80%91.bsca&hl=en"
+                  href="https://www.instagram.com/afairytale.ol/" // Bereinigter Link
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-500 transition-transform hover:scale-110"
+                  aria-label="Instagram"
                 >
                   <Instagram size={24} />
                 </Link>
               </div>
             </div>
           </div>
-
           <ContactForm />
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="relative py-8 px-4 text-center text-sm text-gray-400 border-t border-white/10">
         <p>
           © {new Date().getFullYear()} A Fairy Tale Kollektiv. Alle Rechte
