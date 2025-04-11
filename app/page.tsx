@@ -30,7 +30,6 @@ export default async function Home() {
       nextEventData = upcomingEvents[0];
     }
   } catch (error) {
-    console.error('Failed to fetch next event for homepage:', error);
     fetchError = 'Fehler beim Laden des nächsten Events.';
   }
 

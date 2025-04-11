@@ -30,7 +30,6 @@ export default async function EditEventPage({ params }: EditEventPageProps) {
   try {
     event = await eventRepository.findById(id);
   } catch (error) {
-    console.error(`Failed to fetch event with ID ${id}:`, error);
     notFound();
   }
 

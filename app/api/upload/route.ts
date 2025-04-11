@@ -25,9 +25,7 @@ export async function POST(request: NextRequest) {
     const relativePath = `/team/${filename}`;
     const absolutePath = path.join(process.cwd(), 'public', relativePath);
 
-    console.log(`Speichere Bild nach: ${absolutePath}`); // Debugging
     await writeFile(absolutePath, buffer);
-    console.log(`Datei erfolgreich gespeichert unter ${relativePath}`); // Debugging
 
     return NextResponse.json(
       { success: true, imageUrl: relativePath },

@@ -35,16 +35,13 @@ export default function AdminLoginPage() {
       });
 
       if (result?.error) {
-        console.error('NextAuth Signin Error:', result.error);
         setError('Ungültige E-Mail oder Passwort.');
       } else if (result?.ok) {
-        console.log('Login successful, redirecting to /admin');
         router.push('/admin');
       } else {
         setError('Ein unbekannter Anmeldefehler ist aufgetreten.');
       }
     } catch (err) {
-      console.error('Network or other error during sign in:', err);
       setError(
         'Ein Netzwerkfehler ist aufgetreten. Bitte versuche es später erneut.'
       );

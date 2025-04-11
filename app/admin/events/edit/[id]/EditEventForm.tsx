@@ -196,7 +196,6 @@ export default function EditEventForm({
       router.push('/admin/events');
       router.refresh(); // Wichtig für Datenaktualisierung auf der Liste
     } catch (err: any) {
-      console.error('Fehler beim Aktualisieren:', err);
       setError(err.message || 'Ein unbekannter Fehler ist aufgetreten.');
     } finally {
       setIsSubmitting(false);

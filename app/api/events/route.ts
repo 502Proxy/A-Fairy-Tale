@@ -12,7 +12,6 @@ export async function GET(request: Request) {
     });
     return NextResponse.json(events);
   } catch (error) {
-    console.error('API Error fetching events:', error);
     return NextResponse.json(
       { message: 'Failed to fetch events' },
       { status: 500 }
@@ -91,7 +90,6 @@ export async function POST(request: NextRequest) {
     const newEvent = await eventRepository.create(eventData);
     return NextResponse.json(newEvent, { status: 201 }); // 201 Created
   } catch (error: any) {
-    console.error('API Error creating event:', error);
     if (error instanceof Error && error.message.includes('required')) {
       return NextResponse.json({ message: error.message }, { status: 400 });
     }

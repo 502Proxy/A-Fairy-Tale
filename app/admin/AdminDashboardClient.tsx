@@ -43,15 +43,14 @@ export default function AdminDashboardClient() {
           try {
             const errorData = await response.json();
             errorMsg = errorData.message || errorMsg;
-          } catch (jsonError) {
-            /* Ignoriere */
+          } catch (jsonError: any) {
+            throw new Error(jsonError.message);
           }
           throw new Error(errorMsg);
         }
         const data: StatsData = await response.json();
         setStatsData(data);
       } catch (err: any) {
-        console.error('Failed to fetch admin stats:', err);
         setStatsError(`Fehler beim Laden der Statistiken: ${err.message}`);
       } finally {
         setIsLoadingStats(false);

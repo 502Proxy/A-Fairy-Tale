@@ -32,7 +32,6 @@ export default async function EditResidentPage({
   try {
     resident = await residentRepository.findUnique(id);
   } catch (error) {
-    console.error(`Failed to fetch resident with ID ${id}:`, error);
     notFound(); // Zeige 404 bei Fehler
   }
 

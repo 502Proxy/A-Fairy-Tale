@@ -27,10 +27,6 @@ interface Event {
 }
 
 export default function EventsAdminClient() {
-  // Session kann hier entfernt werden, wenn nicht direkt benötigt
-  // const { data: session, status: authStatus } = useSession();
-  const router = useRouter(); // Bleibt ggf. für programmatische Navigation
-
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | EventStatus>('all');
   const [events, setEvents] = useState<Event[]>([]);
@@ -56,14 +52,11 @@ export default function EventsAdminClient() {
         data = data.map((event) => ({ ...event, date: new Date(event.date) }));
         setEvents(data);
       } catch (e: any) {
-        console.error('Failed to fetch events:', e);
-        setError('Fehler beim Laden der Events.');
+        setError('Fehler beim Laden der Events.' + e.message);
       } finally {
         setIsLoadingData(false);
       }
     };
-    // Der Aufruf sollte idealerweise nur erfolgen, wenn sicher ist,
-    // dass der User eingeloggt ist (durch die Page-Komponente sichergestellt)
     fetchEvents();
   }, []); // Lädt beim Mounten
 
@@ -84,7 +77,6 @@ export default function EventsAdminClient() {
         );
         alert(`Event "${title}" wurde erfolgreich gelöscht.`);
       } catch (err: any) {
-        console.error('Failed to delete event:', err);
         setError(`Fehler beim Löschen von "${title}": ${err.message}`);
         alert(`Fehler beim Löschen von "${title}": ${err.message}`);
       }

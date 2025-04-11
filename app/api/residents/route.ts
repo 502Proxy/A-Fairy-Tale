@@ -14,7 +14,6 @@ export async function GET(request: Request) {
     });
     return NextResponse.json(residents);
   } catch (error) {
-    console.error('API Error fetching residents:', error);
     return NextResponse.json(
       { message: 'Failed to fetch residents' },
       { status: 500 }
@@ -44,7 +43,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(newResident, { status: 201 });
   } catch (error) {
-    console.error('API Error creating resident:', error);
     return NextResponse.json(
       { message: 'Failed to create resident' },
       { status: 500 }

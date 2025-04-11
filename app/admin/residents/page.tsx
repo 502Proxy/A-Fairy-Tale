@@ -31,8 +31,7 @@ interface Resident {
 }
 
 export default function ResidentsAdminClient() {
-  const router = useRouter();
-  const { data: session, status: authStatus } = useSession();
+  const { status: authStatus } = useSession();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [residents, setResidents] = useState<Resident[]>([]);
@@ -95,7 +94,6 @@ export default function ResidentsAdminClient() {
         );
         alert(`"${name}" wurde erfolgreich gelöscht.`);
       } catch (err: any) {
-        console.error('Failed to delete resident:', err);
         setError(`Fehler beim Löschen von "${name}": ${err.message}`);
         alert(`Fehler beim Löschen von "${name}": ${err.message}`);
       }

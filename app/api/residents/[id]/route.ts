@@ -27,7 +27,6 @@ export async function GET(
     }
     return NextResponse.json(resident);
   } catch (error) {
-    console.error(`API Error fetching resident ${id}:`, error);
     return NextResponse.json(
       { message: 'Failed to fetch resident' },
       { status: 500 }

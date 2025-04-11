@@ -34,7 +34,6 @@ export default function ResidentsSection() {
           setActiveIndex(0);
         }
       } catch (e) {
-        console.error('Error fetching residents:', e);
         setError('Fehler beim Laden der Resident DJs.');
         if (e instanceof Error) {
           setError(`Fehler beim Laden: ${e.message}`);

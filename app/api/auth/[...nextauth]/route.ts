@@ -33,7 +33,6 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) {
-          console.error('Authorize missing credentials');
           return null;
         }
 
@@ -42,9 +41,6 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!user || !user.passwordHash) {
-          console.log(
-            `User not found or no password hash for: ${credentials.email}`
-          );
           return null;
         }
 
@@ -54,11 +50,9 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!isValidPassword) {
-          console.log(`Invalid password attempt for: ${credentials.email}`);
           return null;
         }
 
-        console.log(`Credentials valid for: ${user.email}`);
         return {
           id: user.id,
           name: user.name,

@@ -2,7 +2,7 @@
 'use client';
 
 import type React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -114,7 +114,6 @@ export default function EditResidentForm({
       router.push('/admin/residents');
       router.refresh(); // Wichtig, damit die Liste auf der Übersicht aktualisiert wird!
     } catch (err: any) {
-      console.error('Fehler beim Aktualisieren:', err);
       setError(err.message || 'Ein unbekannter Fehler ist aufgetreten.');
     } finally {
       setIsSubmitting(false);

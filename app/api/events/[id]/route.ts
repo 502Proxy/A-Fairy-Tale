@@ -108,7 +108,6 @@ export async function PUT(
     const updatedEvent = await eventRepository.update(id, eventData);
     return NextResponse.json(updatedEvent, { status: 200 });
   } catch (error: any) {
-    console.error(`API Error updating event ${id}:`, error);
     if (error.code === 'P2025') {
       return NextResponse.json({ message: 'Event not found' }, { status: 404 });
     }

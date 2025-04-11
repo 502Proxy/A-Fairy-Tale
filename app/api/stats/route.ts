@@ -27,7 +27,6 @@ export async function GET(request: NextRequest) {
       totalEventCount, // Neuer Wert
     });
   } catch (error) {
-    console.error('API Error fetching admin stats:', error);
     return NextResponse.json(
       { message: 'Failed to fetch admin statistics' },
       { status: 500 }
