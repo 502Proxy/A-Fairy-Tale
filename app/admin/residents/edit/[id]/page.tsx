@@ -16,7 +16,9 @@ interface EditResidentPageProps {
 }
 
 // Dies ist eine Server Component
-export default async function EditResidentPage({ params }: EditResidentPageProps) {
+export default async function EditResidentPage({
+  params,
+}: EditResidentPageProps) {
   const { id } = params;
 
   // Serverseitiger Schutz
@@ -28,12 +30,11 @@ export default async function EditResidentPage({ params }: EditResidentPageProps
   // Daten laden (Annahme: Methode heißt findById)
   let resident = null;
   try {
-      resident = await residentRepository.findUnique(id);
+    resident = await residentRepository.findUnique(id);
   } catch (error) {
-       console.error(`Failed to fetch resident with ID ${id}:`, error);
-       notFound(); // Zeige 404 bei Fehler
+    console.error(`Failed to fetch resident with ID ${id}:`, error);
+    notFound(); // Zeige 404 bei Fehler
   }
-
 
   if (!resident) {
     notFound(); // Zeige 404, wenn nicht gefunden
@@ -42,21 +43,24 @@ export default async function EditResidentPage({ params }: EditResidentPageProps
   return (
     // Hier wird das AdminLayout verwendet
     <AdminLayout pageTitle="Resident DJ bearbeiten">
+      {/* Spezifischer Inhalt für diese Seite */}
+      <div className="mb-6 flex items-center">
+        <Link
+          href="/admin/residents"
+          className="mr-4 flex items-center gap-1 text-gray-400 hover:text-white"
+        >
+          <ArrowLeft size={18} />
+          <span>Zurück zur Übersicht</span>
+        </Link>
+        {/* Optional: Titel hier, da im Layout schon vorhanden (mobil) */}
+        {/* <h1 className="text-2xl font-bold hidden md:block">Resident DJ bearbeiten</h1> */}
+      </div>
 
-        {/* Spezifischer Inhalt für diese Seite */}
-        <div className="mb-6 flex items-center">
-           <Link href="/admin/residents" className="mr-4 flex items-center gap-1 text-gray-400 hover:text-white">
-             <ArrowLeft size={18} />
-             <span>Zurück zur Übersicht</span>
-           </Link>
-           {/* Optional: Titel hier, da im Layout schon vorhanden (mobil) */}
-           {/* <h1 className="text-2xl font-bold hidden md:block">Resident DJ bearbeiten</h1> */}
-         </div>
-
-        {/* Die Edit-Formular-Komponente wird hier als Kind gerendert */}
-        {/* Wichtig: Daten als Plain Object übergeben */}
-        <EditResidentForm initialResidentData={JSON.parse(JSON.stringify(resident))} />
-
+      {/* Die Edit-Formular-Komponente wird hier als Kind gerendert */}
+      {/* Wichtig: Daten als Plain Object übergeben */}
+      <EditResidentForm
+        initialResidentData={JSON.parse(JSON.stringify(resident))}
+      />
     </AdminLayout>
   );
 }

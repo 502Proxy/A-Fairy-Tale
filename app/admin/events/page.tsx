@@ -1,8 +1,8 @@
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'; 
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
-import AdminLayout from '@/components/admin/AdminLayout'; 
-import EventsAdminClient from './EventsAdminClient'; 
+import AdminLayout from '@/components/admin/AdminLayout';
+import EventsAdminClient from './EventsAdminClient';
 
 export default async function AdminEventsPage() {
   const session = await getServerSession(authOptions);
@@ -12,7 +12,7 @@ export default async function AdminEventsPage() {
 
   return (
     <AdminLayout pageTitle="Events verwalten">
-       <EventsAdminClient />
+      <EventsAdminClient />
     </AdminLayout>
   );
 }

@@ -28,10 +28,10 @@ export default async function EditEventPage({ params }: EditEventPageProps) {
   // Event-Daten laden
   let event = null;
   try {
-      event = await eventRepository.findById(id);
+    event = await eventRepository.findById(id);
   } catch (error) {
-      console.error(`Failed to fetch event with ID ${id}:`, error);
-      notFound();
+    console.error(`Failed to fetch event with ID ${id}:`, error);
+    notFound();
   }
 
   if (!event) {
@@ -40,17 +40,19 @@ export default async function EditEventPage({ params }: EditEventPageProps) {
 
   return (
     <AdminLayout pageTitle="Event bearbeiten">
-        <div className="mb-6 flex items-center">
-          <Link href="/admin/events" className="mr-4 flex items-center gap-1 text-gray-400 hover:text-white">
-            <ArrowLeft size={18} />
-            <span>Zurück zur Übersicht</span>
-          </Link>
-        </div>
+      <div className="mb-6 flex items-center">
+        <Link
+          href="/admin/events"
+          className="mr-4 flex items-center gap-1 text-gray-400 hover:text-white"
+        >
+          <ArrowLeft size={18} />
+          <span>Zurück zur Übersicht</span>
+        </Link>
+      </div>
 
-        {/* Die Edit-Formular-Komponente rendern */}
-        {/* Daten sicher als Plain Object übergeben */}
-        <EditEventForm initialEventData={JSON.parse(JSON.stringify(event))} />
-
+      {/* Die Edit-Formular-Komponente rendern */}
+      {/* Daten sicher als Plain Object übergeben */}
+      <EditEventForm initialEventData={JSON.parse(JSON.stringify(event))} />
     </AdminLayout>
   );
 }

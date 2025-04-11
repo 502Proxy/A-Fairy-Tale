@@ -9,7 +9,6 @@ import Image from 'next/image';
 import { Upload, X, Loader2, AlertCircle, Plus, Trash } from 'lucide-react';
 import { EventStatus } from '@prisma/client';
 
-
 interface EventFormData {
   title: string;
   date: string; // YYYY-MM-DD
